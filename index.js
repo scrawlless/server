@@ -16,7 +16,11 @@ app.use(function (req, res, next) {
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-const httpServer = http.createServer();
-httpServer.listen(4000, () => {
-    console.log('HTTP Server running on port 4000');
+app.post('/api/test', function (req, res) {
+    res.send({ message: `Greetings for ${req.body.name} page!` });
+});
+
+const httpServer = http.createServer(app);
+httpServer.listen(8080, () => {
+    console.log('HTTP Server running on port 8080');
 });
