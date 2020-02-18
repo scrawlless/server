@@ -3,6 +3,8 @@ const express = require('express');
 const bodyParser = require('body-parser')
 const app = express();
 
+const Test = mongoose.model('Test');
+
 app.use('/', express.static(__dirname + '/dist'));
 
 app.use(function (req, res, next) {
@@ -17,7 +19,13 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.post('/api/test', function (req, res) {
-    res.send({ message: `Greetings for ${req.body.name} page!` });
+    var test = new Test();
+
+    test.message = req.body.name;
+    
+    test.save(function (err) {
+        res.send({ message: `Greetings for ${req.body.name} page!` });
+    });
 });
 
 const httpServer = http.createServer(app);
