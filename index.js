@@ -3,9 +3,7 @@ const express = require('express');
 const bodyParser = require('body-parser')
 const app = express();
 
-const mongoose = require('mongoose');
-const Test = mongoose.model('Test');
-
+require('./database/database');
 const APIRoutes = require('./routes/api');
 
 app.use('/', express.static(__dirname + '/dist'));
