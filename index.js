@@ -3,7 +3,10 @@ const express = require('express');
 const bodyParser = require('body-parser')
 const app = express();
 
+const mongoose = require('mongoose');
 const Test = mongoose.model('Test');
+
+const APIRoutes = require('./routes/api');
 
 app.use('/', express.static(__dirname + '/dist'));
 
@@ -18,15 +21,7 @@ app.use(function (req, res, next) {
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-app.post('/api/test', function (req, res) {
-    var test = new Test();
-
-    test.message = req.body.name;
-    
-    test.save(function (err) {
-        res.send({ message: `Greetings for ${req.body.name} page!` });
-    });
-});
+app.use('/api', APIRoutes);
 
 const httpServer = http.createServer(app);
 httpServer.listen(8080, () => {
