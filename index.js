@@ -3,6 +3,9 @@ const express = require('express');
 const bodyParser = require('body-parser')
 const app = express();
 
+require('./database/database');
+const APIRoutes = require('./routes/api');
+
 app.use('/', express.static(__dirname + '/dist'));
 
 app.use(function (req, res, next) {
@@ -16,7 +19,9 @@ app.use(function (req, res, next) {
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-const httpServer = http.createServer();
-httpServer.listen(4000, () => {
-    console.log('HTTP Server running on port 4000');
+app.use('/api', APIRoutes);
+
+const httpServer = http.createServer(app);
+httpServer.listen(8080, () => {
+    console.log('HTTP Server running on port 8080');
 });
