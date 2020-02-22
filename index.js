@@ -5,6 +5,9 @@ const bodyParser = require('body-parser');
 const fs = require('fs');
 const app = express();
 
+/* environment variables */
+require('dotenv').config();
+
 require('./database/database');
 const APIRoutes = require('./routes/api');
 
@@ -24,8 +27,14 @@ app.use(function (req, res, next) {
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+console.log(APIRoutes);
+
 app.use('/api', APIRoutes);
 
+const PORT = 3030;
+app.listen(PORT);
+
+/*
 const httpServer = http.createServer(app);
 httpServer.listen(80, () => {
     console.log('HTTP Server running on port 80');
@@ -38,3 +47,4 @@ const httpsServer = https.createServer({
 httpsServer.listen(443, () => {
     console.log('HTTPS Server running on port 443');
 });
+*/
