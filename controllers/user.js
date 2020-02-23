@@ -41,7 +41,7 @@ module.exports.login = (req, res) => {
 					login: true
 				});
 			}
-			res.send({ login: false });
+			res.send(401, "User not authenticated!");
 		});
 	});
 
