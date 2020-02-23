@@ -5,9 +5,6 @@ const bodyParser = require('body-parser');
 const fs = require('fs');
 const app = express();
 
-/* environment variables */
-require('dotenv').config();
-
 require('./database/database');
 const APIRoutes = require('./routes/api');
 
@@ -26,8 +23,6 @@ app.use(function (req, res, next) {
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-
-console.log(APIRoutes);
 
 app.use('/api', APIRoutes);
 
