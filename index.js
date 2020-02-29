@@ -27,7 +27,7 @@ app.use(bodyParser.json());
 app.use('/api', APIRoutes);
 
 const httpServer = http.createServer(app);
-httpServer.listen(80, () => {
+httpServer.listen(8082, () => {
     console.log('HTTP Server running on port 80');
 });
 
@@ -35,6 +35,6 @@ const httpsServer = https.createServer({
     key: fs.readFileSync('/etc/letsencrypt/live/scrawlless.com/privkey.pem'),
     cert: fs.readFileSync('/etc/letsencrypt/live/scrawlless.com/fullchain.pem'),
 }, app);
-httpsServer.listen(443, () => {
+httpsServer.listen(8002, () => {
     console.log('HTTPS Server running on port 443');
 });
