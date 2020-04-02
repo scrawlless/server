@@ -1,17 +1,19 @@
-const http = require('http');
-const https = require('https');
 const express = require('express');
 const bodyParser = require('body-parser');
-const fs = require('fs');
+const cors = require('cors');
+
 const app = express();
 
 require('./database/database');
-const APIRoutes = require('./routes/api');
+
+const UserRoutes = require('./routes/routes');
+const UserSecureRoutes = require('./routes/secure-routes');
 
 app.use('/', express.static(__dirname + '/dist'));
-app.get('*', (req, res) => {
-    res.redirect('/');
-});
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+app.use(cors());
 
 app.use(function (req, res, next) {
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -24,7 +26,8 @@ app.use(function (req, res, next) {
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-app.use('/api', APIRoutes);
+app.use('/user', UserRoutes);
+app.use('/secure', UserSecureRoutes);
 
 const httpServer = http.createServer(app);
 httpServer.listen(8082, () => {
